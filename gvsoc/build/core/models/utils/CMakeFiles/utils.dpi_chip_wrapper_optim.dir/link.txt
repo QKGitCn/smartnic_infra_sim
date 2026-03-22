@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG -shared  -o utils.dpi_chip_wrapper_optim.so CMakeFiles/utils.dpi_chip_wrapper_optim.dir/dpi_chip_wrapper.cpp.o  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine ../../engine/libpulpvp.so -lz -lpthread -ldl 

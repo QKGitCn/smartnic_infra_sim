@@ -1,0 +1,177 @@
+include test.mk
+
+CMAKE_FLAGS ?= -j 16
+CMAKE ?= cmake
+
+TARGETS ?= rv64 \
+    rv64_untimed \
+    pulp-open \
+    pulp-open-nn \
+    pulp-open:chip/cluster/redmule=True \
+    pulp.spatz.spatz \
+    snitch_spatz \
+    occamy \
+    siracusa \
+    snitch \
+    ara \
+    ara_v2 \
+    spatz \
+    spatz_v2 \
+    snitch:core_type=fast \
+    pulp.snitch.snitch_cluster_single \
+    chimera \
+    snitch_testbench \
+    magia \
+	mempool
+
+ifndef BUILDDIR
+ifdef GVSOC_WORKDIR
+BUILDDIR = $(GVSOC_WORKDIR)/build
+else
+BUILDDIR = build
+endif
+endif
+
+ifndef INSTALLDIR
+ifdef GVSOC_WORKDIR
+INSTALLDIR = $(GVSOC_WORKDIR)/install
+else
+INSTALLDIR = install
+endif
+endif
+
+export PATH:=$(CURDIR)/gapy/bin:$(PATH)
+
+all: checkout build
+
+checkout:
+	git submodule update --recursive --init
+
+.PHONY: build gui
+
+ifdef DEBUG
+BUILD_TYPE = RelWithDebInfo
+else
+BUILD_TYPE = Release
+endif
+
+gvrun.build:
+	$(CMAKE) -S gvrun -B $(BUILDDIR)/gvrun -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
+		-DCMAKE_INSTALL_PREFIX=$(INSTALLDIR)
+
+	cmake --build $(BUILDDIR)/gvrun $(CMAKE_FLAGS)
+	cmake --install $(BUILDDIR)/gvrun
+
+build: gvrun.build
+	# Change directory to curdir to avoid issue with symbolic links
+	cd $(CURDIR) && $(CMAKE) -S . -B $(BUILDDIR) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
+		-DCMAKE_INSTALL_PREFIX=$(INSTALLDIR) \
+		-DGVSOC_MODULES="$(CURDIR)/core/models;$(CURDIR)/pulp;$(CURDIR)/pulp/targets;$(CURDIR)/gvrun/python;$(MODULES)" \
+		-DGVSOC_TARGETS="${TARGETS}" \
+		-DCMAKE_SKIP_INSTALL_RPATH=false
+
+	cd $(CURDIR) && $(CMAKE) --build $(BUILDDIR) $(CMAKE_FLAGS)
+	cd $(CURDIR) && $(CMAKE) --install $(BUILDDIR)
+
+
+clean:
+	rm -rf $(BUILDDIR) $(INSTALLDIR)
+
+github.test:
+	gvtest --testset testset-github.cfg --max-timeout 120 --no-fail run table junit
+
+riscv:
+	wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2025.01.17/riscv64-elf-ubuntu-22.04-gcc-nightly-2025.01.17-nightly.tar.xz
+	tar xvf riscv64-elf-ubuntu-22.04-gcc-nightly-2025.01.17-nightly.tar.xz
+
+test.withbuild: riscv
+	PATH=$(CURDIR)/riscv/bin:$(PATH) && gvtest --testset testset_withbuild.cfg  --thread 1 --no-fail run table junit
+
+doc:
+	cd core/docs/user_manual && make html
+	cd core/docs/developer_manual && make html
+	@echo
+	@echo "User documentation: core/docs/user_manual/_build/html/index.html"
+	@echo "Developper documentation: core/docs/developer_manual/_build/html/index.html"
+
+
+######################################################################
+## 				Make Targets for DRAMSys Integration 				##
+######################################################################
+
+SYSTEMC_VERSION := 3.0.1
+SYSTEMC_GIT_URL := https://github.com/accellera-official/systemc.git
+SYSTEMC_INSTALL_DIR := $(PWD)/third_party/systemc_install
+
+build-systemc: third_party/systemc_install/lib64/libsystemc.so
+
+third_party/systemc_install/lib64/libsystemc.so:
+	mkdir -p $(SYSTEMC_INSTALL_DIR)
+	cd third_party && \
+	git clone $(SYSTEMC_GIT_URL) && \
+	cd systemc && git fetch --tags && git checkout $(SYSTEMC_VERSION) && \
+	mkdir build && cd build && \
+	$(CMAKE) -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=$(SYSTEMC_INSTALL_DIR) -DCMAKE_INSTALL_LIBDIR=lib64 .. && \
+	make && make install
+
+build-dramsys: build-systemc third_party/DRAMSys/libDRAMSys_Simulator.so
+
+third_party/DRAMSys/libDRAMSys_Simulator.so:
+	mkdir -p third_party/DRAMSys
+	cp add_dramsyslib_patches/libDRAMSys_Simulator.so third_party/DRAMSys/
+	echo "Check Library Functionality"
+	cd add_dramsyslib_patches/build_dynlib_from_github_dramsys5/dynamic_load/ && \
+	gcc main.c -ldl
+	@if add_dramsyslib_patches/build_dynlib_from_github_dramsys5/dynamic_load/a.out ; then \
+        echo "Test library succeeded"; \
+		rm add_dramsyslib_patches/build_dynlib_from_github_dramsys5/dynamic_load/a.out; \
+		rm DRAMSysRecordable* ; \
+    else \
+		rm add_dramsyslib_patches/build_dynlib_from_github_dramsys5/dynamic_load/a.out; \
+		rm third_party/DRAMSys/libDRAMSys_Simulator.so; \
+		echo "Test libaray failed, We need to rebuild the library, tasks around 40 min"; \
+		echo -n "Do you want to proceed? (y/n) "; \
+		read -t 30 -r user_input; \
+		if [ "$$user_input" = "n" ]; then echo "oops, I see, your time is precious, see you next time"; exit 1; fi; \
+		echo "Go Go Go!" ; \
+		cd add_dramsyslib_patches/build_dynlib_from_github_dramsys5 && make all; \
+		cp DRAMSys/build/lib/libDRAMSys_Simulator.so ../../third_party/DRAMSys/ ; \
+		make clean; \
+    fi
+
+build-configs: core/models/memory/dramsys_configs
+
+core/models/memory/dramsys_configs:
+	cp -rf add_dramsyslib_patches/dramsys_configs core/models/memory/
+
+dramsys_preparation: build-systemc build-dramsys build-configs
+
+clean_dramsys_preparation:
+	rm -rf third_party
+
+######################################################################
+## 				Snitch cluster testsuite			 				##
+######################################################################
+
+snitch_cluster.checkout:
+	git clone git@github.com:pulp-platform/snitch_cluster.git -b gvsoc-ci
+	cd snitch_cluster && git submodule update --recursive --init
+
+snitch_cluster.build:
+	cd snitch_cluster/target/snitch_cluster && make DEBUG=ON OPENOCD_SEMIHOSTING=ON sw
+
+snitch_cluster.test:
+	cd snitch_cluster/target/snitch_cluster && GVSOC_TARGET=$(TARGETS) ./util/run.py sw/run.yaml --simulator gvsoc -j
+
+snitch_cluster: snitch_cluster.checkout snitch_cluster.build snitch_cluster.test
+
+
+gui:
+	@if [ ! -d "gui-release" ]; then \
+		git clone "git@github.com:gvsoc/gui.git" "gui-release"; \
+	fi
+	cd "gui-release" && \
+	git fetch --all && \
+	git checkout 95ca11922a760b526275ae3abda65988de2caeab
+	mkdir -p $(INSTALLDIR)
+	cp -r gui-release/* $(INSTALLDIR)

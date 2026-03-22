@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/gvsoc_launcher.dir/src/main.cpp.o -o gvsoc_launcher  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine: libpulpvp.so -lz -lpthread -ldl 

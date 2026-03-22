@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG -shared  -o interco.bus_watchpoint_64_debug.so CMakeFiles/interco.bus_watchpoint_64_debug.dir/bus_watchpoint.cpp.o  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine ../../engine/libpulpvp-debug.so -lz -lpthread -ldl 

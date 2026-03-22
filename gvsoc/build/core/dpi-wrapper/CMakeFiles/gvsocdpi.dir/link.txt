@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O2 -g -DNDEBUG -shared -Wl,-soname,libgvsocdpi.so -o libgvsocdpi.so CMakeFiles/gvsocdpi.dir/src/dpi.cpp.o  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine: ../engine/libpulpvp.so -lz -lpthread -ldl 

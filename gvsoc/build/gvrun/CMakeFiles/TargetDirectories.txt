@@ -1,0 +1,6 @@
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/edit_cache.dir
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/rebuild_cache.dir
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/list_install_components.dir
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/install.dir
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/install/local.dir
+/home/kunq/gvsoc/gvsoc/build/gvrun/CMakeFiles/install/strip.dir
