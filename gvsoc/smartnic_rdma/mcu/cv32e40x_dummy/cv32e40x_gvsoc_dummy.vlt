@@ -1,0 +1,7 @@
+`verilator_config
+// Suppress UNUSED/UNDRIVEN for cv32e40x_if_xif.sv interface body signals.
+// In the lint environment there is no coprocessor, so XIF cpu_* output
+// signals driven by the dummy have no reader, and coproc-side inputs have
+// no driver.  Both are expected for a no-coprocessor stub build.
+lint_off -rule UNUSED   -file "*/cv32e40x_if_xif.sv"
+lint_off -rule UNDRIVEN -file "*/cv32e40x_if_xif.sv"
