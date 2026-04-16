@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O2 -g -DNDEBUG -shared  -o cpu.clint_optim.so CMakeFiles/cpu.clint_optim.dir/clint.cpp.o  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine ../../engine/libpulpvp.so -lz -lpthread -ldl 

@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared  -o vp.clock_engine_module_optim.so CMakeFiles/vp.clock_engine_module_optim.dir/clock_engine_module.cpp.o  -Wl,-rpath,/home/kunq/smartnic_infra_sim/gvsoc/smartnic_rdma/host_centric_baseline/build/build/core/engine ../../engine/libpulpvp.so -lz -lpthread -ldl 

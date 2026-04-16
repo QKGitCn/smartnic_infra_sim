@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -O2 -g -DNDEBUG -shared  -o devices.uart.ns16550_profile.so CMakeFiles/devices.uart.ns16550_profile.dir/ns16550.cpp.o  -Wl,-rpath,/home/kunq/gvsoc/gvsoc/build/core/engine ../../../engine/libpulpvp-profile.so -lz -lpthread -ldl 
