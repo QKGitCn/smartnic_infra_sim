@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared  -o cpu.emulation.emulation_debug.so CMakeFiles/cpu.emulation.emulation_debug.dir/emulation.cpp.o  -Wl,-rpath,/home/kunq/smartnic_infra_sim/gvsoc/build/core/engine ../../../engine/libpulpvp-debug.so -lz -lpthread -ldl 

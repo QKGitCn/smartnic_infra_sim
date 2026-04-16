@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared  -o vp.clock_engine_module_debug.so CMakeFiles/vp.clock_engine_module_debug.dir/clock_engine_module.cpp.o  -Wl,-rpath,/home/kunq/smartnic_infra_sim/gvsoc/build/core/engine ../../engine/libpulpvp-debug.so -lz -lpthread -ldl 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared  -o interco.bus_watchpoint_64_optim.so CMakeFiles/interco.bus_watchpoint_64_optim.dir/bus_watchpoint.cpp.o  -Wl,-rpath,/home/kunq/smartnic_infra_sim/gvsoc/build/core/engine ../../engine/libpulpvp.so -lz -lpthread -ldl 

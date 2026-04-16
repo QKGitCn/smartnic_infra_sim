@@ -1,0 +1,438 @@
+{
+  "target": {
+    "soc": {
+      "ico": {
+        "mappings": {
+          "mem": {
+            "base": 0,
+            "size": 16777216,
+            "remove_offset": 0,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_mem_alias": {
+            "base": 2147483648,
+            "size": 16777216,
+            "remove_offset": 2147483648,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "rdma": {
+            "base": 536870912,
+            "size": 65536,
+            "remove_offset": 536870912,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_ctrl": {
+            "base": 536936448,
+            "size": 65536,
+            "remove_offset": 536936448,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_rom": {
+            "base": 2415919104,
+            "size": 65536,
+            "remove_offset": 2415919104,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_uart": {
+            "base": 268435456,
+            "size": 256,
+            "remove_offset": 268435456,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_clint": {
+            "base": 33554432,
+            "size": 65536,
+            "remove_offset": 33554432,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "host_plic": {
+            "base": 201326592,
+            "size": 16777216,
+            "remove_offset": 201326592,
+            "add_offset": 0,
+            "latency": 0
+          }
+        },
+        "latency": 0,
+        "bandwidth": 0,
+        "shared_rw_bandwidth": false,
+        "max_input_pending_size": 0,
+        "nb_input_port": 1,
+        "vp_component": "gen_interco_router_router_common_cpp_59666758",
+        "ports": [
+          "mem",
+          "host_mem_alias",
+          "rdma",
+          "host_ctrl",
+          "host_rom",
+          "host_uart",
+          "host_clint",
+          "host_plic",
+          "input"
+        ]
+      },
+      "rtl_mcu": {
+        "rtl_top_name": "cv32e40x_gvsoc_dummy_lint_top",
+        "behavioral_enabled": true,
+        "max_run_cycles": 2000,
+        "dpi_enabled": false,
+        "dpi_config_path": "",
+        "boot_addr": 2147483648,
+        "fetch_on_reset_release": false,
+        "trace_reset": true,
+        "trace_irq": true,
+        "trace_mem": true,
+        "vp_component": "gen_dpi_mcu_wrapper_cpp_108997737",
+        "ports": [
+          "mem",
+          "fetch_enable",
+          "entry"
+        ]
+      },
+      "host_ctrl": {
+        "rdma_base": 536870912,
+        "sq_addr": 4096,
+        "cq_addr": 8192,
+        "src_addr": 65536,
+        "dst_addr": 131072,
+        "copy_size": 64,
+        "max_completion_polls": 64,
+        "status_done": 2,
+        "userspace_req_cycles": 2,
+        "kernel_req_cycles": 6,
+        "driver_prepare_cycles": 8,
+        "pcie_submit_cycles": 4,
+        "poll_interval_cycles": 2,
+        "pcie_completion_cycles": 4,
+        "driver_completion_cycles": 6,
+        "kernel_completion_cycles": 4,
+        "userspace_completion_cycles": 2,
+        "wqe_size": 32,
+        "cqe_size": 32,
+        "vp_component": "gen_host_control_path_cpp_101103953",
+        "ports": [
+          "input",
+          "output",
+          "irq"
+        ]
+      },
+      "rdma": {
+        "sq_addr": 4096,
+        "cq_addr": 8192,
+        "src_addr": 65536,
+        "dst_addr": 131072,
+        "wqe_size": 32,
+        "cqe_size": 32,
+        "copy_size": 64,
+        "status_idle": 0,
+        "status_busy": 1,
+        "status_done": 2,
+        "vp_component": "gen_rdma_engine_cpp_9743040",
+        "ports": [
+          "input",
+          "dma",
+          "irq"
+        ]
+      },
+      "mem": {
+        "path": "",
+        "size": 16777216,
+        "atomics": true,
+        "latency": 0,
+        "init": true,
+        "stim_file": null,
+        "power_trigger": false,
+        "width_bits": -1,
+        "align": 0,
+        "memcheck_id": -1,
+        "memcheck_base": 0,
+        "memcheck_virtual_base": 0,
+        "memcheck_expansion_factor": 5,
+        "vp_component": "gen_memory_memory_cpp_105025602",
+        "ports": [
+          "input",
+          "meminfo"
+        ]
+      },
+      "host_rom": {
+        "path": "",
+        "size": 65536,
+        "atomics": false,
+        "latency": 0,
+        "init": true,
+        "stim_file": "/home/kunq/smartnic_infra_sim/gvsoc/install/generators/pulp/chips/rv64/rom.bin",
+        "power_trigger": false,
+        "width_bits": -1,
+        "align": 0,
+        "memcheck_id": -1,
+        "memcheck_base": 0,
+        "memcheck_virtual_base": 0,
+        "memcheck_expansion_factor": 5,
+        "vp_component": "gen_memory_memory_cpp_149327240",
+        "ports": [
+          "input"
+        ]
+      },
+      "host_uart": {
+        "vp_component": "devices.uart.ns16550",
+        "offset_shift": 0,
+        "ports": [
+          "input",
+          "irq"
+        ]
+      },
+      "host_clint": {
+        "vp_component": "cpu.clint",
+        "nb_cores": 1,
+        "ports": [
+          "input",
+          "time",
+          "sw_irq_0",
+          "timer_irq_0"
+        ]
+      },
+      "host_plic": {
+        "vp_component": "cpu.plic",
+        "ndev": 1,
+        "ports": [
+          "input",
+          "irq1",
+          "s_irq_0",
+          "m_irq_0"
+        ]
+      },
+      "host_cpu_rv64": {
+        "isa": "rv64imafdc",
+        "misa": 1315117,
+        "first_external_pcer": 0,
+        "riscv_dbg_unit": true,
+        "debug_binaries": [],
+        "binaries": [],
+        "debug_handler": 0,
+        "power_models": {},
+        "cluster_id": 0,
+        "core_id": 0,
+        "fetch_enable": false,
+        "boot_addr": 2415919104,
+        "has_double": true,
+        "memory_start": 2147483648,
+        "memory_size": 16777216,
+        "vp_component": "gen_isa_rv64imafdc_80149279_cpp_214642051",
+        "ports": [
+          "data",
+          "fetch",
+          "meminfo",
+          "time",
+          "msi",
+          "mti",
+          "sei",
+          "mei"
+        ]
+      },
+      "mcu_loader": {
+        "vp_component": "utils.loader.loader",
+        "binary": [
+          "/home/kunq/smartnic_infra_sim/gvsoc/smartnic_rdma/host_centric_baseline/build/mcu_fw/mcu_smoke.elf"
+        ],
+        "ports": [
+          "out",
+          "start",
+          "entry"
+        ]
+      },
+      "bindings": [
+        [
+          "ico->mem",
+          "mem->input"
+        ],
+        [
+          "ico->host_mem_alias",
+          "mem->input"
+        ],
+        [
+          "ico->rdma",
+          "rdma->input"
+        ],
+        [
+          "ico->host_ctrl",
+          "host_ctrl->input"
+        ],
+        [
+          "ico->host_rom",
+          "host_rom->input"
+        ],
+        [
+          "ico->host_uart",
+          "host_uart->input"
+        ],
+        [
+          "ico->host_clint",
+          "host_clint->input"
+        ],
+        [
+          "ico->host_plic",
+          "host_plic->input"
+        ],
+        [
+          "host_uart->irq",
+          "host_plic->irq1"
+        ],
+        [
+          "host_cpu_rv64->data",
+          "ico->input"
+        ],
+        [
+          "host_cpu_rv64->fetch",
+          "ico->input"
+        ],
+        [
+          "host_cpu_rv64->meminfo",
+          "mem->meminfo"
+        ],
+        [
+          "host_cpu_rv64->time",
+          "host_clint->time"
+        ],
+        [
+          "host_clint->sw_irq_0",
+          "host_cpu_rv64->msi"
+        ],
+        [
+          "host_clint->timer_irq_0",
+          "host_cpu_rv64->mti"
+        ],
+        [
+          "host_plic->s_irq_0",
+          "host_cpu_rv64->sei"
+        ],
+        [
+          "host_plic->m_irq_0",
+          "host_cpu_rv64->mei"
+        ],
+        [
+          "rtl_mcu->mem",
+          "ico->input"
+        ],
+        [
+          "mcu_loader->out",
+          "ico->input"
+        ],
+        [
+          "mcu_loader->start",
+          "rtl_mcu->fetch_enable"
+        ],
+        [
+          "mcu_loader->entry",
+          "rtl_mcu->entry"
+        ],
+        [
+          "host_ctrl->output",
+          "ico->input"
+        ],
+        [
+          "rdma->dma",
+          "mem->input"
+        ],
+        [
+          "rdma->irq",
+          "host_ctrl->irq"
+        ]
+      ],
+      "components": [
+        "ico",
+        "rtl_mcu",
+        "host_ctrl",
+        "rdma",
+        "mem",
+        "host_rom",
+        "host_uart",
+        "host_clint",
+        "host_plic",
+        "host_cpu_rv64",
+        "mcu_loader"
+      ],
+      "ports": [
+        "clock"
+      ]
+    },
+    "clock": {
+      "vp_component": "vp.clock_engine_module",
+      "frequency": 100000000,
+      "factor": 1,
+      "ports": [
+        "out"
+      ]
+    },
+    "gvsoc": {
+      "proxy": {
+        "enabled": false,
+        "port": 42951
+      },
+      "events": {
+        "enabled": false,
+        "include_raw": [],
+        "include_regex": [],
+        "exclude_regex": [],
+        "format": "vcd",
+        "active": false,
+        "all": true,
+        "gtkw": false,
+        "gen_gtkw": false,
+        "files": [],
+        "traces": {},
+        "tags": [
+          "overview"
+        ],
+        "use-external-dumper": null
+      },
+      "include_dirs": [
+        "/home/kunq/smartnic_infra_sim/gvsoc/smartnic_rdma/host_centric_baseline/build/core_build/install/models",
+        "/home/kunq/smartnic_infra_sim/gvsoc/smartnic_rdma/host_centric_baseline/build/core_build/install/models",
+        "/home/kunq/smartnic_infra_sim/gvsoc/install/models"
+      ],
+      "runner_module": "gv.gvsoc",
+      "cycles_to_seconds": "int(max(cycles * nb_cores / 5000000, 600))",
+      "werror": true,
+      "verbose": true,
+      "debug-mode": false,
+      "profile-mode": false,
+      "launchers": {
+        "default": "gvsoc_launcher",
+        "profile": "gvsoc_launcher_profile",
+        "debug": "gvsoc_launcher_debug"
+      },
+      "traces": {
+        "level": "debug",
+        "format": "long",
+        "float_hex": false,
+        "enabled": false,
+        "include_regex": [],
+        "exclude_regex": []
+      },
+      "systemc": false,
+      "wunconnected-padfun": false,
+      "memcheck": false,
+      "power": false,
+      "stats": false,
+      "stats_raw": false,
+      "stats_flat": false
+    },
+    "bindings": [
+      [
+        "clock->out",
+        "soc->clock"
+      ]
+    ],
+    "components": [
+      "soc",
+      "clock"
+    ]
+  }
+}

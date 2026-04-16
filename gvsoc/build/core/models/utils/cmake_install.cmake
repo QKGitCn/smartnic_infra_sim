@@ -1,0 +1,74 @@
+# Install script for directory: /home/kunq/smartnic_infra_sim/gvsoc/core/models/utils
+
+# Set the install prefix
+if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  set(CMAKE_INSTALL_PREFIX "/home/kunq/smartnic_infra_sim/gvsoc/install")
+endif()
+string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+
+# Set the install configuration name.
+if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+  if(BUILD_TYPE)
+    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+  else()
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+  endif()
+  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+endif()
+
+# Set the component getting installed.
+if(NOT CMAKE_INSTALL_COMPONENT)
+  if(COMPONENT)
+    message(STATUS "Install component: \"${COMPONENT}\"")
+    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+  else()
+    set(CMAKE_INSTALL_COMPONENT)
+  endif()
+endif()
+
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/utils" TYPE FILE MESSAGE_LAZY RENAME "composite_impl.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.composite_impl_optim.so")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/profile/utils" TYPE FILE MESSAGE_LAZY RENAME "composite_impl.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.composite_impl_profile.so")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/debug/utils" TYPE FILE MESSAGE_LAZY RENAME "composite_impl.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.composite_impl_debug.so")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/utils" TYPE FILE MESSAGE_LAZY RENAME "dpi_chip_wrapper.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.dpi_chip_wrapper_optim.so")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/profile/utils" TYPE FILE MESSAGE_LAZY RENAME "dpi_chip_wrapper.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.dpi_chip_wrapper_profile.so")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/models/debug/utils" TYPE FILE MESSAGE_LAZY RENAME "dpi_chip_wrapper.so" FILES "/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/utils.dpi_chip_wrapper_debug.so")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/kunq/smartnic_infra_sim/gvsoc/build/core/models/utils/loader/cmake_install.cmake")
+
+endif()
+

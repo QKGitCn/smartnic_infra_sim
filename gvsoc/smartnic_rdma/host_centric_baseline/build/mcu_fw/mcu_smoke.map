@@ -1,0 +1,62 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x80000000         0x00001000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x80000000                        BOOT_ADDR = 0x80000000
+LOAD /tmp/ccusVP2U.o
+LOAD /tmp/ccdkMk5A.o
+                0x80000000                        BOOT_ADDR = DEFINED (BOOT_ADDR)?BOOT_ADDR:0x80000000
+
+.text           0x80000000       0x50
+ *(.text.start)
+ .text.start    0x80000000       0x30 /tmp/ccusVP2U.o
+                0x80000000                _start
+ *(.text .text.*)
+ .text          0x80000030        0x0 /tmp/ccusVP2U.o
+ .text          0x80000030        0x0 /tmp/ccdkMk5A.o
+ .text.startup  0x80000030       0x20 /tmp/ccdkMk5A.o
+                0x80000030                main
+ *(.rodata .rodata.*)
+
+.rela.dyn       0x80000050        0x0
+ .rela.text.start
+                0x80000050        0x0 /tmp/ccusVP2U.o
+ .rela.text.startup
+                0x80000050        0x0 /tmp/ccusVP2U.o
+
+.data           0x80000050        0x0
+ *(.data .data.*)
+ .data          0x80000050        0x0 /tmp/ccusVP2U.o
+ .data          0x80000050        0x0 /tmp/ccdkMk5A.o
+
+.bss            0x80000050        0x0
+                0x80000050                        _bss_start = .
+ *(.bss .bss.*)
+ .bss           0x80000050        0x0 /tmp/ccusVP2U.o
+ .bss           0x80000050        0x0 /tmp/ccdkMk5A.o
+ *(COMMON)
+                0x80000050                        _bss_end = .
+                0x80000200                        . = (BOOT_ADDR + 0x200)
+                0x80000200                        _canary_addr = .
+                0x80000204                        . = (BOOT_ADDR + 0x204)
+                0x80000204                        _done_addr = .
+                0x80001000                        _stack_top = (BOOT_ADDR + 0x1000)
+OUTPUT(/home/kunq/smartnic_infra_sim/gvsoc/smartnic_rdma/host_centric_baseline/build/mcu_fw/mcu_smoke.elf elf32-littleriscv)
+
+.riscv.attributes
+                0x00000000       0x25
+ .riscv.attributes
+                0x00000000       0x23 /tmp/ccusVP2U.o
+ .riscv.attributes
+                0x00000023       0x25 /tmp/ccdkMk5A.o
+
+.comment        0x00000000       0x12
+ .comment       0x00000000       0x12 /tmp/ccdkMk5A.o
+                                 0x13 (size before relaxing)

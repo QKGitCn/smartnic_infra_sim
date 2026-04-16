@@ -1,0 +1,321 @@
+{
+  "target": {
+    "clock": {
+      "vp_component": "vp.clock_engine_module",
+      "frequency": 10000000,
+      "factor": 1,
+      "ports": [
+        "out"
+      ]
+    },
+    "soc": {
+      "mem": {
+        "init": true,
+        "size": 2147483648,
+        "stim_file": null,
+        "power_trigger": false,
+        "width_bits": -1,
+        "align": 0,
+        "latency": 0,
+        "memcheck_id": -1,
+        "memcheck_base": 0,
+        "memcheck_virtual_base": 0,
+        "memcheck_expansion_factor": 5,
+        "vp_component": "gen_memory_memory_cpp_105025602",
+        "ports": [
+          "input",
+          "meminfo"
+        ]
+      },
+      "rom": {
+        "init": true,
+        "size": 65536,
+        "stim_file": "/home/kunq/gvsoc/gvsoc/install/generators/pulp/chips/rv64/rom.bin",
+        "power_trigger": false,
+        "width_bits": -1,
+        "align": 0,
+        "latency": 0,
+        "memcheck_id": -1,
+        "memcheck_base": 0,
+        "memcheck_virtual_base": 0,
+        "memcheck_expansion_factor": 5,
+        "vp_component": "gen_memory_memory_cpp_149327240",
+        "ports": [
+          "input"
+        ]
+      },
+      "uart": {
+        "vp_component": "devices.uart.ns16550",
+        "offset_shift": 0,
+        "ports": [
+          "input",
+          "irq"
+        ]
+      },
+      "clint": {
+        "vp_component": "cpu.clint",
+        "nb_cores": 1,
+        "ports": [
+          "input",
+          "time",
+          "sw_irq_0",
+          "timer_irq_0"
+        ]
+      },
+      "plic": {
+        "vp_component": "cpu.plic",
+        "ndev": 1,
+        "ports": [
+          "input",
+          "irq1",
+          "s_irq_0",
+          "m_irq_0"
+        ]
+      },
+      "ico": {
+        "mappings": {
+          "mem": {
+            "base": 2147483648,
+            "size": 2147483648,
+            "remove_offset": 2147483648,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "rom": {
+            "base": 4096,
+            "size": 65536,
+            "remove_offset": 4096,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "uart": {
+            "base": 268435456,
+            "size": 256,
+            "remove_offset": 268435456,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "clint": {
+            "base": 33554432,
+            "size": 65536,
+            "remove_offset": 33554432,
+            "add_offset": 0,
+            "latency": 0
+          },
+          "plic": {
+            "base": 201326592,
+            "size": 16777216,
+            "remove_offset": 201326592,
+            "add_offset": 0,
+            "latency": 0
+          }
+        },
+        "latency": 0,
+        "bandwidth": 0,
+        "shared_rw_bandwidth": false,
+        "max_input_pending_size": 0,
+        "nb_input_port": 1,
+        "vp_component": "gen_interco_router_router_common_cpp_59666758",
+        "ports": [
+          "mem",
+          "rom",
+          "uart",
+          "clint",
+          "plic",
+          "input"
+        ]
+      },
+      "host": {
+        "isa": "rv64imafdc",
+        "misa": 1315117,
+        "first_external_pcer": 0,
+        "riscv_dbg_unit": true,
+        "debug_binaries": [],
+        "binaries": [],
+        "debug_handler": 0,
+        "power_models": {},
+        "cluster_id": 0,
+        "core_id": 0,
+        "fetch_enable": false,
+        "boot_addr": 4096,
+        "has_double": true,
+        "vp_component": "gen_isa_rv64imafdc_80149279_cpp_225095802",
+        "ports": [
+          "data",
+          "meminfo",
+          "fetch",
+          "time",
+          "fetchen",
+          "msi",
+          "mti",
+          "sei",
+          "mei"
+        ]
+      },
+      "loader": {
+        "vp_component": "utils.loader.loader",
+        "binary": [
+          "/home/kunq/gvsoc/gvsoc/examples/rv64/pk"
+        ],
+        "ports": [
+          "out",
+          "start"
+        ]
+      },
+      "tohost": {
+        "vp_component": "interco.bus_watchpoint_64",
+        "riscv_fesvr_tohost_addr": 2147528712,
+        "riscv_fesvr_fromhost_addr": 2147528704,
+        "args": [
+          "/home/kunq/gvsoc/gvsoc/examples/rv64/hello"
+        ],
+        "ports": [
+          "input",
+          "output"
+        ]
+      },
+      "bindings": [
+        [
+          "ico->mem",
+          "mem->input"
+        ],
+        [
+          "ico->rom",
+          "rom->input"
+        ],
+        [
+          "ico->uart",
+          "uart->input"
+        ],
+        [
+          "ico->clint",
+          "clint->input"
+        ],
+        [
+          "ico->plic",
+          "plic->input"
+        ],
+        [
+          "uart->irq",
+          "plic->irq1"
+        ],
+        [
+          "host->data",
+          "tohost->input"
+        ],
+        [
+          "tohost->output",
+          "ico->input"
+        ],
+        [
+          "host->meminfo",
+          "mem->meminfo"
+        ],
+        [
+          "host->fetch",
+          "ico->input"
+        ],
+        [
+          "host->time",
+          "clint->time"
+        ],
+        [
+          "loader->out",
+          "ico->input"
+        ],
+        [
+          "loader->start",
+          "host->fetchen"
+        ],
+        [
+          "clint->sw_irq_0",
+          "host->msi"
+        ],
+        [
+          "clint->timer_irq_0",
+          "host->mti"
+        ],
+        [
+          "plic->s_irq_0",
+          "host->sei"
+        ],
+        [
+          "plic->m_irq_0",
+          "host->mei"
+        ]
+      ],
+      "components": [
+        "mem",
+        "rom",
+        "uart",
+        "clint",
+        "plic",
+        "ico",
+        "host",
+        "loader",
+        "tohost"
+      ],
+      "ports": [
+        "clock"
+      ]
+    },
+    "gvsoc": {
+      "proxy": {
+        "enabled": false,
+        "port": 42951
+      },
+      "events": {
+        "enabled": false,
+        "include_raw": [],
+        "include_regex": [],
+        "exclude_regex": [],
+        "format": "vcd",
+        "active": false,
+        "all": true,
+        "gtkw": false,
+        "gen_gtkw": false,
+        "files": [],
+        "traces": {},
+        "tags": [
+          "overview"
+        ],
+        "use-external-dumper": null
+      },
+      "include_dirs": [
+        "/home/kunq/gvsoc/gvsoc/install/models"
+      ],
+      "runner_module": "gv.gvsoc",
+      "cycles_to_seconds": "int(max(cycles * nb_cores / 5000000, 600))",
+      "werror": true,
+      "verbose": true,
+      "debug-mode": false,
+      "profile-mode": false,
+      "launchers": {
+        "default": "gvsoc_launcher",
+        "debug": "gvsoc_launcher_debug"
+      },
+      "traces": {
+        "level": "debug",
+        "format": "long",
+        "float_hex": false,
+        "enabled": false,
+        "include_regex": [],
+        "exclude_regex": []
+      },
+      "systemc": false,
+      "wunconnected-padfun": false,
+      "memcheck": false,
+      "power": false
+    },
+    "bindings": [
+      [
+        "clock->out",
+        "soc->clock"
+      ]
+    ],
+    "components": [
+      "clock",
+      "soc"
+    ]
+  }
+}

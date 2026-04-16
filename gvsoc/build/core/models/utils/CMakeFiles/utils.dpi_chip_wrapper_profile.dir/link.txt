@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -shared  -o utils.dpi_chip_wrapper_profile.so CMakeFiles/utils.dpi_chip_wrapper_profile.dir/dpi_chip_wrapper.cpp.o  -Wl,-rpath,/home/kunq/smartnic_infra_sim/gvsoc/build/core/engine ../../engine/libpulpvp-profile.so -lz -lpthread -ldl 

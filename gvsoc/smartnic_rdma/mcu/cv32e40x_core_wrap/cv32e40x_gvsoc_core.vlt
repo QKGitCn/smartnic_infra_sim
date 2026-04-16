@@ -1,0 +1,18 @@
+`verilator_config
+// Suppress UNUSED/UNDRIVEN for cv32e40x_if_xif.sv interface body signals.
+// No coprocessor connected (X_EXT=0).
+lint_off -rule UNUSED   -file "*/cv32e40x_if_xif.sv"
+lint_off -rule UNDRIVEN -file "*/cv32e40x_if_xif.sv"
+// UNOPTFLAT in various upstream combinational paths (PMA, MPU, controller FSM, etc.)
+lint_off -rule UNOPTFLAT -file "*/cv32e40x_*.sv"
+// CSR modules use mixed blocking/non-blocking to the same variable across
+// separate always blocks.  This is intentional in the cv32e40x implementation
+// (rdata_q is driven by always_ff for state and always_comb for reset path).
+lint_off -rule BLKANDNBLK -file "*/cv32e40x_csr.sv"
+lint_off -rule BLKANDNBLK -file "*/cv32e40x_cs_registers.sv"
+// Implicit wire warnings from CLIC-disabled paths and debug_triggers.
+lint_off -rule IMPLICIT   -file "*/cv32e40x_debug_triggers.sv"
+lint_off -rule IMPLICIT   -file "*/cv32e40x_ex_stage.sv"
+// Width mismatch warnings in upstream RTL (benign, cannot modify vendor files).
+lint_off -rule WIDTHEXPAND -file "*/cv32e40x_*.sv"
+lint_off -rule WIDTHTRUNC  -file "*/cv32e40x_*.sv"

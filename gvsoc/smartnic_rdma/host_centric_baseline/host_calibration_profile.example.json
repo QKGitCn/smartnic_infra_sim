@@ -1,0 +1,11 @@
+{
+  "userspace_req_cycles": 2,
+  "kernel_req_cycles": 6,
+  "driver_prepare_cycles": 8,
+  "pcie_submit_cycles": 4,
+  "poll_interval_cycles": 2,
+  "pcie_completion_cycles": 4,
+  "driver_completion_cycles": 6,
+  "kernel_completion_cycles": 4,
+  "userspace_completion_cycles": 2
+}
